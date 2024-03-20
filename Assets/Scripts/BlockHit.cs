@@ -1,11 +1,33 @@
 using UnityEngine;
 using System.Collections;
 
-public class BlockHit : MonoBehaviour {
+public class BlockHit : MonoBehaviour 
+{
 
     public int MaxHits = -1;
+
     private bool isAnimating = false;
-    private void OnCollisionEnter2D(Collision2D collision) {
+
+    public SpriteRenderer sr;
+
+    public bool isHidden = false;
+
+    public PlatformEffector2D platformEffector2d;
+
+    public GameObject collectiblePrefab;
+
+
+    private void Awake() 
+    {
+        platformEffector2d.enabled = isHidden;
+        if (isHidden)
+        {
+            sr.color = Color.clear;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) 
+    {
         if(collision.gameObject.CompareTag("Player") && !isAnimating && MaxHits != 0) {
             Vector3 upDirection = transform.TransformDirection(Vector3.up);
             Vector3 compareDirection = (collision.transform.position - transform.position).normalized;
@@ -17,9 +39,30 @@ public class BlockHit : MonoBehaviour {
     }
     IEnumerator Hit() {
         isAnimating = true;
-        Vector3 endPosition = transform.position + Vector3.up = 0.5f;
+        platformEffector2d.enabled = false;
+        sr.color = Color.white;
+        MaxHits--;
+        Vector3 endPosition = transform.position + Vector3.up * 0.5f;
         yield return transform.MoveBackAndForth(endPosition);
         isAnimating = false;
-        MaxHits--;
+
+        if(collectiblePrefab != null) {
+            GameObject collectible = Instantiate (
+                collectiblePrefab,
+                transform.position,
+                Quaternion.identity
+            );  
+            Vector3 collectibleEndPosition = (
+                collectible.transform.localPosition + Vector3.up * 1.5f
+                );
+            yield return collectible.transform.MoveBackAndForth(
+                collectibleEndPosition
+                );
+        }
+
+        isAnimating = false;
     }
+        
 }
+
+
