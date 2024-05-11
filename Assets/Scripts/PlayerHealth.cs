@@ -4,6 +4,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public Animator animator;
 
+    public GameObject[] hearts;
+
     public SpriteRenderer sr;
 
     public PlayerInvulnerable playerInvulnerable;
@@ -45,6 +47,17 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             StartCoroutine(playerInvulnerable.Invulnerable());
+        }
+    }
+
+    void Update(){
+        if(playerData.currentHealth < 2)
+        {
+            Destroy(hearts[0].gameObject);
+        }
+        else if(playerData.currentHealth < 3)
+        {
+            Destroy(hearts[1].gameObject);
         }
     }
 

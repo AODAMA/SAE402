@@ -19,7 +19,7 @@ TagManager:
   - Collectibles
   - InvincibleEnemies
   - OneWayPlatforms
-  - 
+  - THEWALL
   - 
   - 
   - 
@@ -51,4 +51,7 @@ TagManager:
     locked: 0
   - name: Foregrounds
     uniqueID: 1383865653
+    locked: 0
+  - name: WALL
+    uniqueID: 3394343771
     locked: 0

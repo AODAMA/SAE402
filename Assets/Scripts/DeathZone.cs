@@ -8,7 +8,7 @@ public class DeathZone : MonoBehaviour
             other.gameObject.TryGetComponent(out PlayerHealth playerHealth)
         )
         {
-            playerHealth.TakeDamage(0.5f);
+            playerHealth.TakeDamage(1f);
             other.transform.position = other.GetComponent<PlayerSpawn>().currentSpawnPosition;
             // We "stop" the player on respawn
             other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

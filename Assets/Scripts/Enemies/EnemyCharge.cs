@@ -156,7 +156,7 @@ public class EnemyCharge : MonoBehaviour
             if (playerContacts.hasBottomContact && rb.velocity.y < 0)
             {
                 PlayerHealth playerHealth = hit.transform.GetComponent<PlayerHealth>();
-                playerHealth.TakeDamage(float.MaxValue);
+                playerHealth.TakeDamage(1);
             }
         }
     }
